@@ -30,6 +30,7 @@ RUN mkdir -p /etc/docker &&  printf '{"runtimes": {"nvidia": {"path": "nvidia-co
 
 # https://github.com/NVIDIA/nvidia-docker/issues/1163
 # RUN sed -i -- 's/@\/sbin\/ldconfig.real/\/sbin\/ldconfig.real/g' /etc/nvidia-container-runtime/config.toml
+RUN apt-get update && apt-get upgrade -y cuda-toolkit-config-common
 
 ENTRYPOINT ["startup.sh"]
 CMD ["sh"]
