@@ -33,5 +33,6 @@ for process in "${processes[@]}"; do
     fi
 done
 
+apt-get update && apt-get upgrade -y cuda-toolkit-config-common
 # Wait processes to be running
 /bin/bash
