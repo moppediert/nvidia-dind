@@ -25,7 +25,11 @@ COPY logger.sh /opt/bash-utils/logger.sh
 RUN chmod +x /usr/local/bin/startup.sh /usr/local/bin/modprobe
 VOLUME /var/lib/docker
 
+# https://stackoverflow.com/questions/59691207/docker-build-with-nvidia-runtime
 RUN mkdir -p /etc/docker &&  printf '{"runtimes": {"nvidia": {"path": "nvidia-container-runtime","runtimeArgs": []}},"default-runtime": "nvidia"}\n' > /etc/docker/daemon.json
+
+# https://github.com/NVIDIA/nvidia-docker/issues/1163
+RUN sed -i -- 's/@\/sbin\/ldconfig.real/\/sbin\/ldconfig.real/g' /etc/nvidia-container-runtime/config.toml
 
 ENTRYPOINT ["startup.sh"]
 CMD ["sh"]
