@@ -25,5 +25,7 @@ COPY logger.sh /opt/bash-utils/logger.sh
 RUN chmod +x /usr/local/bin/startup.sh /usr/local/bin/modprobe
 VOLUME /var/lib/docker
 
+RUN mkdir -p /etc/docker &&  printf '{"runtimes": {"nvidia": {"path": "nvidia-container-runtime","runtimeArgs": []}},"default-runtime": "nvidia"}\n' > /etc/docker/daemon.json
+
 ENTRYPOINT ["startup.sh"]
 CMD ["sh"]
