@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.8.0-runtime-ubuntu20.04
+FROM nvidia/cuda:11.8.0-base-ubuntu22.04
 
 RUN apt-get update && apt-get install -y \
         apt-utils \
@@ -29,7 +29,7 @@ VOLUME /var/lib/docker
 RUN mkdir -p /etc/docker &&  printf '{"runtimes": {"nvidia": {"path": "nvidia-container-runtime","runtimeArgs": []}},"default-runtime": "nvidia"}\n' > /etc/docker/daemon.json
 
 # https://github.com/NVIDIA/nvidia-docker/issues/1163
-RUN sed -i -- 's/@\/sbin\/ldconfig.real/\/sbin\/ldconfig.real/g' /etc/nvidia-container-runtime/config.toml
+# RUN sed -i -- 's/@\/sbin\/ldconfig.real/\/sbin\/ldconfig.real/g' /etc/nvidia-container-runtime/config.toml
 
 ENTRYPOINT ["startup.sh"]
 CMD ["sh"]
